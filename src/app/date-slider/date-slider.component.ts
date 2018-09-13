@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DateSliderComponent implements OnInit {
 
+  public today: Date;
+
   constructor() { }
 
   ngOnInit() {
+    this.today = new Date();
   }
 
+  tomorrow() {
+    this.today.setDate(this.today.getDate() + 1);
+  }
+
+  yesterday() {
+    this.today.setDate(this.today.getDate() - 1);
+  }
 }
