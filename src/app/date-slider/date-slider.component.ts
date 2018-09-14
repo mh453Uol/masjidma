@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-date-slider',
@@ -7,19 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DateSliderComponent implements OnInit {
 
-  public today: Date;
+  today: moment.Moment;
+  date: string;
 
   constructor() { }
 
   ngOnInit() {
-    this.today = new Date();
+    this.today = moment();
+    this.formatDate();
   }
 
   tomorrow() {
-    this.today.setDate(this.today.getDate() + 1);
+    this.today.add(1, 'days').calendar();
+    this.formatDate();
   }
 
   yesterday() {
-    this.today.setDate(this.today.getDate() - 1);
+    this.today.subtract(1, 'days').calendar();
+    this.formatDate();
+  }
+
+  formatDate() {
+    this.date = this.today.format('dddd, ll');
+  }
+
+  log() {
+    console.log('Working');
   }
 }
