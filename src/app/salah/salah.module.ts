@@ -1,3 +1,4 @@
+import { SalahService } from './salah-service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ViewSalahComponent } from './view-salah/view-salah.component';
@@ -18,6 +19,9 @@ import { DateSliderComponent } from './date-slider/date-slider.component';
   exports: [
     ViewSalahComponent,
     DateSliderComponent
+  ],
+  providers: [
+    SalahService
   ]
 })
 export class SalahModule { }

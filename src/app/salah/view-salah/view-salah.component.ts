@@ -1,8 +1,6 @@
-import { SalahServiceService } from './../salah-service.service';
+import { SalahService } from './../salah-service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { combineLatest } from 'rxjs';
-import { CompileTemplateMetadata } from '@angular/compiler';
 
 @Component({
   selector: 'app-view-salah',
@@ -15,7 +13,7 @@ export class ViewSalahComponent implements OnInit {
   jammat: any;
   loading: boolean;
 
-  constructor(private _salahService: SalahServiceService) { }
+  constructor(private _salahService: SalahService) { }
 
   ngOnInit() {
     this.today = moment();
