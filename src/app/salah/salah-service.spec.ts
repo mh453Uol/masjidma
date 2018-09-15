@@ -1,15 +1,14 @@
+import { SalahService } from './salah-service';
 import { TestBed, inject } from '@angular/core/testing';
-
-import { SalahServiceService } from './salah-service.service';
 
 describe('SalahServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SalahServiceService]
+      providers: [SalahService]
     });
   });
 
-  it('should be created', inject([SalahServiceService], (service: SalahServiceService) => {
+  it('should be created', inject([SalahService], (service: SalahService) => {
     expect(service).toBeTruthy();
   }));
 });

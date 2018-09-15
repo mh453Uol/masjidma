@@ -1,0 +1,36 @@
+<h1>Salah Form</h1>
+
+<form [formGroup]="form">
+  <div class="table-responsive-xl">
+    <table class="table table-striped">
+      <thead class="text-center">
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col" style="min-width: 90px">Fajr</th>
+          <th scope="col" style="min-width: 90px">Sunrise</th>
+          <th scope="col" style="min-width: 90px">Zuhr</th>
+          <th scope="col" style="min-width: 90px">Asr</th>
+          <th scope="col" style="min-width: 90px">Magrib</th>
+          <th scope="col" style="min-width: 90px">Isha</th>
+          <th scope="col" style="min-width: 90px"></th>
+        </tr>
+      </thead>
+      <tbody formArrayName="salahs" *ngFor="let salah of salahs.controls; let i = index;">
+        <tr [formGroupName]="i">
+          <th scope="row">{{salah.value.day}}</th>
+          <td>
+            <input class="form-control" formControlName="fajr">
+          </td>
+          <td>
+            <input class="form-control" formControlName="sunrise">
+          </td>
+          <td><input class="form-control" formControlName="zuhr"></td>
+          <td><input class="form-control" formControlName="asr"></td>
+          <td><input class="form-control" formControlName="magrib"></td>
+          <td><input class="form-control" formControlName="isha"></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
