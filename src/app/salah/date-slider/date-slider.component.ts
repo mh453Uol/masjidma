@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
@@ -8,8 +8,11 @@ import * as moment from 'moment';
 })
 export class DateSliderComponent implements OnInit {
 
+  @Input('today')
   today: moment.Moment;
   date: string;
+  @Output('change')
+  change = new EventEmitter();
 
   constructor() { }
 
@@ -21,18 +24,24 @@ export class DateSliderComponent implements OnInit {
   tomorrow() {
     this.today.add(1, 'days').calendar();
     this.formatDate();
+    this.onChange();
   }
 
   yesterday() {
     this.today.subtract(1, 'days').calendar();
     this.formatDate();
+    this.onChange();
   }
 
   formatDate() {
     this.date = this.today.format('dddd, ll');
   }
 
+  onChange() {
+    this.change.emit({ date: this.today });
+  }
+
   log() {
-    console.log('Working');
+    console.log(this.date);
   }
 }

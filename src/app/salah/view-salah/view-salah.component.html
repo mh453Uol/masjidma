@@ -1,4 +1,6 @@
-<div class="table-responsive">
+<app-date-slider [today]="today" (change)="getSalahs($event)"></app-date-slider>
+
+<div class="table-responsive" *ngIf="jammat">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -16,32 +18,32 @@
       <tr>
         <td>Fajr</td>
         <td>3:00</td>
-        <td>5:30</td>
+        <td>{{jammat.fajr}}</td>
       </tr>
       <tr>
         <td>Sunrise</td>
         <td>5:50</td>
-        <td>5:50</td>
+        <td>{{jammat.sunrise}}</td>
       </tr>
       <tr>
         <td>Zuhr</td>
         <td>1:00</td>
-        <td>1:30</td>
+        <td>{{jammat.zuhr}}</td>
       </tr>
       <tr>
         <td>Asr</td>
         <td>6:30</td>
-        <td>6:30</td>
+        <td>{{jammat.asr}}</td>
       </tr>
       <tr>
         <td>Magrib</td>
         <td>7:50</td>
-        <td>7:50</td>
+        <td>{{jammat.magrib}}</td>
       </tr>
       <tr>
         <td>Isha</td>
         <td>9:50</td>
-        <td>9:50</td>
+        <td>{{jammat.isha}}</td>
       </tr>
     </tbody>
   </table>

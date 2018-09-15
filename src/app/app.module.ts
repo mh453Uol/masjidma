@@ -9,7 +9,7 @@ import { DateSliderComponent } from './date-slider/date-slider.component';
 @NgModule({
   declarations: [
     AppComponent,
-    DateSliderComponent
+    //DateSliderComponent
   ],
   imports: [
     BrowserModule,
