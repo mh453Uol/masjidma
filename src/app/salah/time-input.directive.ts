@@ -25,9 +25,9 @@ export class TimeInputDirective {
       hourLeft = +(units[0][0]);
       hourRight = +(units[0][1]);
       if (hourLeft === 2 && hourRight > 3) {
-        this.el.nativeElement.style.backgroundColor = 'red';
+        this.el.nativeElement.style.borderColor = 'red';
       } else {
-        this.el.nativeElement.style.backgroundColor = 'white';
+        this.el.nativeElement.style.borderColor = 'none';
       }
     }
   }

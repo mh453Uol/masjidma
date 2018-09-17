@@ -1,3 +1,4 @@
+import { TimeValidator } from './../../shared/validation/time-validator';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
@@ -17,7 +18,7 @@ export class SalahFormComponent implements OnInit {
 
   form: FormGroup;
 
-  public mask = [/[0-2]/, /\d/, ':', /[0-5]/, /\d/]
+  public mask = [/[0-2]/, /\d/, ':', /[0-5]/, /\d/];
 
   constructor(private fb: FormBuilder) {
   }
@@ -39,13 +40,12 @@ export class SalahFormComponent implements OnInit {
     for (let i = 1; i <= days; i++) {
       prayers.push(this.fb.group({
         day: i,
-        month: this.month,
-        fajr: '',
-        sunrise: '',
-        zuhr: '',
-        asr: '',
-        magrib: '',
-        isha: ''
+        fajr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+        sunrise: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+        zuhr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+        asr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+        magrib: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+        isha: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]]
       }));
     }
     return prayers;
@@ -55,6 +55,8 @@ export class SalahFormComponent implements OnInit {
     return this.form.get('salahs') as FormArray;
   }
 
-
+  log() {
+    console.log(this.form.get('salahs'));
+  }
 
 }

@@ -1,6 +1,6 @@
 <h1>Salah Form</h1>
 
-<div class="card text-center">
+<!-- <div class="card text-center">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -41,37 +41,59 @@
       </li>
     </ul>
   </div>
-  <div class="card-body">
-    <form [formGroup]="form">
-      <div class="table-responsive-xl">
-        <table class="table table-bordered">
-          <thead class="text-center">
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col" style="min-width: 90px">Fajr</th>
-              <th scope="col" style="min-width: 90px">Sunrise</th>
-              <th scope="col" style="min-width: 90px">Zuhr</th>
-              <th scope="col" style="min-width: 90px">Asr</th>
-              <th scope="col" style="min-width: 90px">Magrib</th>
-              <th scope="col" style="min-width: 90px">Isha</th>
-              <th scope="col" style="min-width: 90px"></th>
-            </tr>
-          </thead>
-          <tbody formArrayName="salahs" *ngFor="let salah of salahs.controls; let i = index;">
-            <tr [formGroupName]="i">
-              <th scope="row">{{salah.value.day}}</th>
-              <td><input appTimeInput [textMask]="{mask: mask}" type="text" class="form-control" formControlName="fajr"></td>
-              <td><input type="time" class="form-control" formControlName="sunrise"></td>
-              <td><input type="time" class="form-control" formControlName="zuhr"></td>
-              <td><input type="time" class="form-control" formControlName="asr"></td>
-              <td><input type="time" class="form-control" formControlName="magrib"></td>
-              <td><input type="time" class="form-control" formControlName="isha"></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </form>
-
+  <div class="card-body"> -->
+<form [formGroup]="form">
+  <div class="form-group">
+    <button type="button" class="btn btn-primary btn-block" disabled="form.invalid">Save</button>
   </div>
-</div>
+  <div class="table-responsive-xl">
+    <table class="table table-bordered">
+      <thead class="text-center">
+        <tr>
+          <th scope="col">Day</th>
+          <th scope="col" style="min-width: 90px">Fajr</th>
+          <th scope="col" style="min-width: 90px">Sunrise</th>
+          <th scope="col" style="min-width: 90px">Zuhr</th>
+          <th scope="col" style="min-width: 90px">Asr</th>
+          <th scope="col" style="min-width: 90px">Magrib</th>
+          <th scope="col" style="min-width: 90px">Isha</th>
+          <th scope="col" style="min-width: 90px"></th>
+        </tr>
+      </thead>
+      <tbody formArrayName="salahs" *ngFor="let salah of salahs.controls; let i = index;">
+        <tr [formGroupName]="i">
+          <th scope="row">{{salah.value.day}}</th>
+          <td>
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="fajr" [class.is-invalid]="salah.controls.fajr.errors">
+          </td>
+
+          <td>
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="sunrise"
+              [class.is-invalid]="salah.controls.sunrise.errors">
+          </td>
+
+          <td>
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="zuhr" [class.is-invalid]="salah.controls.zuhr.errors">
+          </td>
+
+          <td>
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="asr" [class.is-invalid]="salah.controls.asr.errors">
+          </td>
+
+          <td>
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="magrib"
+              [class.is-invalid]="salah.controls.magrib.errors">
+          </td>
+
+          <td>
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="isha" [class.is-invalid]="salah.controls.isha.errors">
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
+
+<!-- </div>
+</div> -->
