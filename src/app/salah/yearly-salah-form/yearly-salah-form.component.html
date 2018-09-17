@@ -1,0 +1,56 @@
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 1" (click)="onTabClicked(1)">January</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 2" (click)="onTabClicked(2)">Febuary</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 3" (click)="onTabClicked(3)">March</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 4" (click)="onTabClicked(4)">April</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 5" (click)="onTabClicked(5)">May</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 6" (click)="onTabClicked(6)">June</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 7" (click)="onTabClicked(7)">July</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 8" (click)="onTabClicked(8)">August</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 9" (click)="onTabClicked(9)">September</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 10" (click)="onTabClicked(10)">October</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 11" (click)="onTabClicked(11)">November</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor:pointer" [class.active]="selectedMonth == 12" (click)="onTabClicked(12)">December</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <app-salah-form month="1" year="{{year}}" [hidden]="selectedMonth != 1"></app-salah-form>
+    <app-salah-form month="2" year="{{year}}" [hidden]="selectedMonth != 2"></app-salah-form>
+    <app-salah-form month="3" year="{{year}}" [hidden]="selectedMonth != 3"></app-salah-form>
+    <app-salah-form month="4" year="{{year}}" [hidden]="selectedMonth != 4"></app-salah-form>
+    <app-salah-form month="5" year="{{year}}" [hidden]="selectedMonth != 5"></app-salah-form>
+    <app-salah-form month="6" year="{{year}}" [hidden]="selectedMonth != 6"></app-salah-form>
+    <app-salah-form month="7" year="{{year}}" [hidden]="selectedMonth != 7"></app-salah-form>
+    <app-salah-form month="8" year="{{year}}" [hidden]="selectedMonth != 8"></app-salah-form>
+    <app-salah-form month="9" year="{{year}}" [hidden]="selectedMonth != 9"></app-salah-form>
+    <app-salah-form month="10" year="{{year}}" [hidden]="selectedMonth != 10"></app-salah-form>
+    <app-salah-form month="11" year="{{year}}" [hidden]="selectedMonth != 11"></app-salah-form>
+    <app-salah-form month="12" year="{{year}}" [hidden]="selectedMonth != 12"></app-salah-form>
+  </div>
+</div>

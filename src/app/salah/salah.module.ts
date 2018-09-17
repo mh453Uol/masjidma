@@ -8,8 +8,8 @@ import { DateSliderComponent } from './date-slider/date-slider.component';
 import { CreateNonDailySalahComponent } from './create-non-daily-salah/create-non-daily-salah.component';
 import { SalahFormComponent } from './salah-form/salah-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TimeInputDirective } from './time-input.directive';
 import { TextMaskModule } from 'angular2-text-mask';
+import { YearlySalahFormComponent } from './yearly-salah-form/yearly-salah-form.component';
 
 @NgModule({
   imports: [
@@ -20,17 +20,18 @@ import { TextMaskModule } from 'angular2-text-mask';
     TextMaskModule
   ],
   declarations: [
-    TimeInputDirective,
     ViewSalahComponent,
     DateSliderComponent,
     SalahFormComponent,
-    CreateNonDailySalahComponent
+    CreateNonDailySalahComponent,
+    YearlySalahFormComponent
   ],
   exports: [
     SalahFormComponent,
     ViewSalahComponent,
     DateSliderComponent,
-    CreateNonDailySalahComponent
+    CreateNonDailySalahComponent,
+    YearlySalahFormComponent
   ],
   providers: [
     SalahService

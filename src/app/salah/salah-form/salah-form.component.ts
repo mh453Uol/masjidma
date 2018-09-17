@@ -28,8 +28,6 @@ export class SalahFormComponent implements OnInit {
       month: ['', Validators.required],
       salahs: this.fb.array(this.getSalahsForMonth())
     });
-
-    console.log(this.form);
   }
 
   getSalahsForMonth(): FormGroup[] {
