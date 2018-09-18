@@ -1,3 +1,4 @@
+import { SalahService } from './../salah-service';
 import { TimeValidator } from './../../shared/validation/time-validator';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
@@ -17,15 +18,15 @@ export class SalahFormComponent implements OnInit {
   year: number;
 
   form: FormGroup;
+  mask = [/[0-2]/, /\d/, ':', /[0-5]/, /\d/];
 
-  public mask = [/[0-2]/, /\d/, ':', /[0-5]/, /\d/];
-
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private salahService: SalahService) {
   }
 
   ngOnInit() {
     this.form = this.fb.group({
-      month: ['', Validators.required],
+      month: [this.month, Validators.required],
       salahs: this.fb.array(this.getSalahsForMonth())
     });
   }
@@ -57,4 +58,8 @@ export class SalahFormComponent implements OnInit {
     console.log(this.form.get('salahs'));
   }
 
+  save() {
+    console.log(this.form.value);
+    //this.salahService.saveSalahs(this.form);
+  }
 }

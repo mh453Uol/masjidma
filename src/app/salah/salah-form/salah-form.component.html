@@ -1,6 +1,6 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="save()">
   <div class="form-group">
-    <button type="button" class="btn btn-primary btn-block" disabled="form.invalid">Save</button>
+    <button type="submit" class="btn btn-primary btn-block">Save All</button>
   </div>
   <div class="table-responsive-xl">
     <table class="table table-bordered">
@@ -13,7 +13,7 @@
           <th scope="col" style="min-width: 90px">Asr</th>
           <th scope="col" style="min-width: 90px">Magrib</th>
           <th scope="col" style="min-width: 90px">Isha</th>
-          <th scope="col" style="min-width: 90px"></th>
+          <th scope="col" style="min-width: 40px"></th>
         </tr>
       </thead>
       <tbody formArrayName="salahs" *ngFor="let salah of salahs.controls; let i = index;">
@@ -22,29 +22,26 @@
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="fajr" [class.is-invalid]="salah.controls.fajr.errors">
           </td>
-
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="sunrise"
               [class.is-invalid]="salah.controls.sunrise.errors">
           </td>
-
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="zuhr" [class.is-invalid]="salah.controls.zuhr.errors">
           </td>
-
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="asr" [class.is-invalid]="salah.controls.asr.errors">
           </td>
-
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="magrib"
               [class.is-invalid]="salah.controls.magrib.errors">
           </td>
-
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="isha" [class.is-invalid]="salah.controls.isha.errors">
           </td>
-          <td></td>
+          <td>
+            <button type="button" class="btn btn-sm"><i class="fa fa-edit"></i></button>
+          </td>
         </tr>
       </tbody>
     </table>
