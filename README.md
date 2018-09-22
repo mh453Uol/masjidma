@@ -1,5 +1,8 @@
 # MasjidmaFrontend
 
+## Live
+https://goo.gl/rZ9tqm 
+
 ### Prayer times for university islamic socities
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
