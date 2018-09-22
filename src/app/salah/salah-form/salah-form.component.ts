@@ -1,15 +1,16 @@
 import { SalahService } from './../salah-service';
 import { TimeValidator } from './../../shared/validation/time-validator';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
+import { TabHeadingDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-salah-form',
   templateUrl: './salah-form.component.html',
   styleUrls: ['./salah-form.component.css']
 })
-export class SalahFormComponent implements OnInit {
+export class SalahFormComponent implements OnInit, OnChanges {
 
   @Input()
   month: number;
@@ -17,8 +18,15 @@ export class SalahFormComponent implements OnInit {
   @Input()
   year: number;
 
+  @Input()
+  loadData = false;
+
   form: FormGroup;
   mask = [/[0-2]/, /\d/, ':', /[0-5]/, /\d/];
+  isLoading = false;
+
+  private _doubleClickedInput;
+  private _organisationId = 1;
 
   constructor(private fb: FormBuilder,
     private salahService: SalahService) {
@@ -27,11 +35,50 @@ export class SalahFormComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       month: [this.month, Validators.required],
-      salahs: this.fb.array(this.getSalahsForMonth())
+      salahs: this.fb.array(this.getNumberOfSalahsForTheMonth())
     });
   }
 
-  getSalahsForMonth(): FormGroup[] {
+  get salahs(): FormArray {
+    return this.form.get('salahs') as FormArray;
+  }
+
+  // ngOnChange is triggered when input properties are changed. So in the parent
+  // parent component (yearly salah) when the user click the month tab we want 
+  // to get data then.
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.loadData) {
+      if (changes.loadData.currentValue) {
+        this.isLoading = true;
+        // get monthly salah for the month when the tab is clicked
+        this.salahService.getMonthlySalahs(this.month, this._organisationId)
+          .subscribe(
+            data => {
+              this.updateFormWithMonthlySalahs(data);
+            },
+            error => { alert('Couldnt get monthly salahs'); },
+            () => { this.isLoading = false; }
+          );
+      }
+    }
+  }
+
+  updateFormWithMonthlySalahs(monthlySalahs) {
+    console.log('Updating form with latest data', monthlySalahs);
+    for (let i = 0; i < monthlySalahs.salahs.length; i++) {
+
+      (<FormArray>this.form.get('salahs')).at(i).patchValue({
+        fajr: monthlySalahs.salahs[i].fajr,
+        sunrise: monthlySalahs.salahs[i].sunrise,
+        zuhr: monthlySalahs.salahs[i].zuhr,
+        asr: monthlySalahs.salahs[i].asr,
+        magrib: monthlySalahs.salahs[i].magrib,
+        isha: monthlySalahs.salahs[i].isha,
+      });
+    }
+  }
+
+  getNumberOfSalahsForTheMonth(): FormGroup[] {
     const date = this.year + '-' + this.month;
     const days = moment(date, 'YYYY-MM').daysInMonth();
     const prayers = [];
@@ -50,16 +97,38 @@ export class SalahFormComponent implements OnInit {
     return prayers;
   }
 
-  get salahs(): FormArray {
-    return this.form.get('salahs') as FormArray;
+  save() {
+    console.log(this.form);
+    const salahs = this.form.value.salahs;
+    const month = this.form.value.month;
+    const payload = {
+      month: month,
+      organisationId: this._organisationId,
+      salahs: salahs
+    };
+    salahs.map(x => {
+      x.month = this.form.value.month;
+      x.organisationId = this._organisationId;
+    });
+    this.salahService.saveMonthlySalahs(payload)
+      .subscribe(
+        data => { alert('sucess'); },
+        error => { alert('Something went wrong'); }
+      );
+  }
+
+  onDoubleClicked(salah, index) {
+    this._doubleClickedInput = { salahName: salah, formindex: index };
+    console.log(this._doubleClickedInput);
+  }
+
+  onCopySalahTimeToOtherDays() {
+    console.log('Hello');
+    //const time = this.salahs[this._doubleClickedInput.formIndex][this._doubleClickedInput.salahName];
+    //console.log(time, this._doubleClickedInput);
   }
 
   log() {
-    console.log(this.form.get('salahs'));
-  }
-
-  save() {
-    console.log(this.form.value);
-    //this.salahService.saveSalahs(this.form);
+    console.log("on mouse over");
   }
 }

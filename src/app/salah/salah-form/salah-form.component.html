@@ -1,6 +1,20 @@
+<div class="panel" [hidden]="!isLoading">
+  Loading..
+</div>
+
+<ng-template #popOverTemplate>
+  <p class="font-weight-bold text-center">
+    Would you like us to copy this salah time to all the other days?
+  </p>
+  <button type="button" class="btn btn-block btn-primary" (click)="onCopySalahTimeToOtherDays();">Yes
+    please</button>
+</ng-template>
+
+<input type="text" class="form-control" placeholder="Show popover on input change">
+
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-block">Save All</button>
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="form.invalid || form.pristine">Save All</button>
   </div>
   <div class="table-responsive-xl">
     <table class="table table-bordered">
@@ -13,34 +27,34 @@
           <th scope="col" style="min-width: 90px">Asr</th>
           <th scope="col" style="min-width: 90px">Magrib</th>
           <th scope="col" style="min-width: 90px">Isha</th>
-          <th scope="col" style="min-width: 40px"></th>
         </tr>
       </thead>
       <tbody formArrayName="salahs" *ngFor="let salah of salahs.controls; let i = index;">
         <tr [formGroupName]="i">
           <th scope="row">{{salah.value.day}}</th>
           <td>
-            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="fajr" [class.is-invalid]="salah.controls.fajr.errors">
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="fajr" [class.is-invalid]="salah.controls.fajr.errors"
+              [popover]="popOverTemplate" trigger="dblclick" (dblclick)="onDoubleClicked('ZUHR',i)">
           </td>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="sunrise"
-              [class.is-invalid]="salah.controls.sunrise.errors">
+              [class.is-invalid]="salah.controls.sunrise.errors" (dblclick)="onDoubleClicked('SUNRISE',i)">
           </td>
           <td>
-            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="zuhr" [class.is-invalid]="salah.controls.zuhr.errors">
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="zuhr" [class.is-invalid]="salah.controls.zuhr.errors"
+              (dblclick)="onDoubleClicked('ZUHR',i)">
           </td>
           <td>
-            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="asr" [class.is-invalid]="salah.controls.asr.errors">
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="asr" [class.is-invalid]="salah.controls.asr.errors"
+              (dblclick)="onDoubleClicked('ASR',i)">
           </td>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="magrib"
-              [class.is-invalid]="salah.controls.magrib.errors">
+              [class.is-invalid]="salah.controls.magrib.errors" (dblclick)="onDoubleClicked('MAGRIB',i)">
           </td>
           <td>
-            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="isha" [class.is-invalid]="salah.controls.isha.errors">
-          </td>
-          <td>
-            <button type="button" class="btn btn-sm"><i class="fa fa-edit"></i></button>
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="isha" [class.is-invalid]="salah.controls.isha.errors"
+              (dblclick)="onDoubleClicked('ISHA',i)">
           </td>
         </tr>
       </tbody>

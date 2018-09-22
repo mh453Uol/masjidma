@@ -12,8 +12,18 @@ export class SalahService {
 
   constructor(private _http: HttpClient) { }
 
-  getSalah(day: number, month: number) {
-    const url = this.baseUrl + this.salahUrl + '/' + day + '/' + month + '/' + 4;
+  getSalah(day: number, month: number, organisationId: number) {
+    const url = this.baseUrl + this.salahUrl + '/' + day + '/' + month + '/' + organisationId;
+    return this._http.get(url);
+  }
+
+  saveMonthlySalahs(salahs) {
+    const url = this.baseUrl + this.salahUrl + '/monthly';
+    return this._http.post(url, salahs);
+  }
+
+  getMonthlySalahs(month: number, organisationId: number) {
+    const url = this.baseUrl + this.salahUrl + '/monthly/' + month + '/' + organisationId;
     return this._http.get(url);
   }
 }

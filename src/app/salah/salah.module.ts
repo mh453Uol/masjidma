@@ -2,7 +2,7 @@ import { SalahService } from './salah-service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ViewSalahComponent } from './view-salah/view-salah.component';
-import { TooltipModule } from 'ngx-bootstrap';
+import { TooltipModule, PopoverModule } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { DateSliderComponent } from './date-slider/date-slider.component';
 import { CreateNonDailySalahComponent } from './create-non-daily-salah/create-non-daily-salah.component';
@@ -17,6 +17,7 @@ import { YearlySalahFormComponent } from './yearly-salah-form/yearly-salah-form.
     HttpClientModule,
     ReactiveFormsModule,
     TooltipModule.forRoot(),
+    PopoverModule.forRoot(),
     TextMaskModule
   ],
   declarations: [

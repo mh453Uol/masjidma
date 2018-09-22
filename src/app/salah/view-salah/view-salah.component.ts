@@ -13,6 +13,8 @@ export class ViewSalahComponent implements OnInit {
   jammat: any;
   loading: boolean;
 
+  private _organisationId = 1;
+
   constructor(private _salahService: SalahService) { }
 
   ngOnInit() {
@@ -29,7 +31,7 @@ export class ViewSalahComponent implements OnInit {
 
     // month is 0 based
     this._salahService
-      .getSalah(this.today.date(), this.today.month() + 1)
+      .getSalah(this.today.date(), this.today.month() + 1, this._organisationId)
       .subscribe(
         data => { this.jammat = data; },
         error => { alert('Something went wrong'); },
