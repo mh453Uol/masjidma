@@ -36,6 +36,7 @@
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="fajr" [class.is-invalid]="salah.controls.fajr.errors"
               [popover]="popOverTemplate" trigger="dblclick" (dblclick)="onDoubleClicked('ZUHR',i)">
           </td>
+          <p>test</p>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="sunrise"
               [class.is-invalid]="salah.controls.sunrise.errors" (dblclick)="onDoubleClicked('SUNRISE',i)">
