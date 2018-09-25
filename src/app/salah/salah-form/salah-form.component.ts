@@ -50,7 +50,7 @@ export class SalahFormComponent implements OnInit, OnChanges {
     if (changes.loadData) {
       if (changes.loadData.currentValue) {
         this.isLoading = true;
-        // get monthly salah for the month when the tab is clicked
+        //get monthly salah for the month when the tab is clicked
         this.salahService.getMonthlySalahs(this.month, this._organisationId)
           .subscribe(
             data => {
@@ -65,15 +65,21 @@ export class SalahFormComponent implements OnInit, OnChanges {
 
   updateFormWithMonthlySalahs(monthlySalahs) {
     console.log('Updating form with latest data', monthlySalahs);
-    for (let i = 0; i < monthlySalahs.salahs.length; i++) {
+    for (let i = 0; i < monthlySalahs.prayerTimes.length; i++) {
 
-      (<FormArray>this.form.get('salahs')).at(i).patchValue({
-        fajr: monthlySalahs.salahs[i].fajr,
-        sunrise: monthlySalahs.salahs[i].sunrise,
-        zuhr: monthlySalahs.salahs[i].zuhr,
-        asr: monthlySalahs.salahs[i].asr,
-        magrib: monthlySalahs.salahs[i].magrib,
-        isha: monthlySalahs.salahs[i].isha,
+      this.salahs.at(i).patchValue({
+        fajr: monthlySalahs.prayerTimes[i].jamaatTimes.fajr,
+        zuhr: monthlySalahs.prayerTimes[i].jamaatTimes.zuhr,
+        asr: monthlySalahs.prayerTimes[i].jamaatTimes.asr,
+        magrib: monthlySalahs.prayerTimes[i].jamaatTimes.magrib,
+        isha: monthlySalahs.prayerTimes[i].jamaatTimes.isha,
+
+        earliestFajr: monthlySalahs.prayerTimes[i].startPrayerTimes.fajr,
+        sunrise: monthlySalahs.prayerTimes[i].startPrayerTimes.sunrise,
+        earliestZuhr: monthlySalahs.prayerTimes[i].startPrayerTimes.zuhr,
+        earliestAsr: monthlySalahs.prayerTimes[i].startPrayerTimes.asr,
+        earliestIsha: monthlySalahs.prayerTimes[i].startPrayerTimes.isha,
+
       });
     }
   }
@@ -87,11 +93,16 @@ export class SalahFormComponent implements OnInit, OnChanges {
       prayers.push(this.fb.group({
         day: i,
         fajr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
-        sunrise: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
         zuhr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
         asr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
         magrib: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
-        isha: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]]
+        isha: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+
+        earliestFajr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+        sunrise: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+        earliestZuhr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+        earliestAsr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+        earliestIsha: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
       }));
     }
     return prayers;

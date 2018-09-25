@@ -10,7 +10,7 @@ import * as moment from 'moment';
 export class ViewSalahComponent implements OnInit {
 
   today: moment.Moment;
-  jammat: any;
+  prayer: any;
   loading: boolean;
 
   private _organisationId = 1;
@@ -33,7 +33,7 @@ export class ViewSalahComponent implements OnInit {
     this._salahService
       .getSalah(this.today.date(), this.today.month() + 1, this._organisationId)
       .subscribe(
-        data => { this.jammat = data; },
+        data => { this.prayer = data; },
         error => { alert('Something went wrong'); },
         () => { this.loading = false; }
       );

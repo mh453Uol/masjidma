@@ -1,49 +1,46 @@
 <app-date-slider [today]="today" (change)="getSalahs($event)"></app-date-slider>
 
-<div class="table-responsive" *ngIf="jammat">
+<div class="table-responsive" *ngIf="prayer">
   <table class="table table-hover">
-    <thead>
+    <thead class="text-center">
       <tr>
-        <th scope="col"></th>
-        <th scope="col">Salah
+        <th scope="col-2">Salah</th>
+        <th scope="col">Earliest
           <i class="fa fa-question-circle" tooltip="These times are the start time of each salah"></i>
         </th>
-        <th scope="
-            col">Jammat
+        <th scope="col">Jamaat
           <i class="fa fa-question-circle" tooltip="These times are when <organization> read in congregration"></i>
         </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
       <tr>
         <td>Fajr</td>
-        <td>3:00</td>
-        <td>{{jammat.fajr}}</td>
+        <td>{{prayer.startPrayerTimes.fajr}}</td>
+        <td>{{prayer.jamaatTimes.fajr}}</td>
       </tr>
       <tr>
         <td>Sunrise</td>
-        <td>5:50</td>
-        <td>{{jammat.sunrise}}</td>
+        <td colspan="2">{{prayer.startPrayerTimes.sunrise}}</td>
       </tr>
       <tr>
         <td>Zuhr</td>
         <td>1:00</td>
-        <td>{{jammat.zuhr}}</td>
+        <td>{{prayer.jamaatTimes.zuhr}}</td>
       </tr>
       <tr>
         <td>Asr</td>
         <td>6:30</td>
-        <td>{{jammat.asr}}</td>
+        <td>{{prayer.jamaatTimes.asr}}</td>
       </tr>
       <tr>
         <td>Magrib</td>
-        <td>7:50</td>
-        <td>{{jammat.magrib}}</td>
+        <td colspan="2">{{prayer.jamaatTimes.magrib}}</td>
       </tr>
       <tr>
         <td>Isha</td>
         <td>9:50</td>
-        <td>{{jammat.isha}}</td>
+        <td>{{prayer.jamaatTimes.isha}}</td>
       </tr>
     </tbody>
   </table>
