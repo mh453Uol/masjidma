@@ -17,8 +17,9 @@ export class SalahService {
     return this._http.get(url);
   }
 
-  saveMonthlySalahs(salahs) {
-    const url = this.baseUrl + this.salahUrl + '/monthly';
+  saveMonthlySalahs(salahs, month: number, organisationId: number) {
+    console.log(salahs, month, organisationId);
+    const url = this.baseUrl + this.salahUrl + '/monthly/' + month + '/' + organisationId;
     return this._http.post(url, salahs);
   }
 

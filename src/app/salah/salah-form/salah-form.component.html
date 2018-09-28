@@ -6,13 +6,16 @@
   <p class="font-weight-bold text-center">
     Would you like us to copy this salah time to all the other days?
   </p>
-  <button type="button" class="btn btn-block btn-primary" (click)="log()">Yes
+  <button type="button" class="btn btn-block btn-primary" (click)="onCopySalahTimeToOtherDays()">Yes
     please</button>
 </ng-template>
 
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-block" [disabled]="form.invalid || form.pristine">Save All</button>
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="form.invalid">Save All</button>
+  </div>
+  <div class="form-group">
+    <button type="button" class="btn btn-default btn-block" (click)="onRefresh()">Refresh</button>
   </div>
   <div class="table-responsive-xl">
     <table class="table table-bordered">
@@ -36,44 +39,54 @@
           <th scope="row">{{salah.value.day}}</th>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="earliestFajr"
-              [class.is-invalid]="salah.controls.earliestFajr.errors" [popover]="popOverTemplate" #p="ngbPopover" click="log(p)">
+              [class.is-invalid]="salah.controls.earliestFajr.errors" [popover]="popOverTemplate" #popoverEarliestFajr="bs-popover"
+              triggers="" (dblclick)="onShowPopOver(popoverEarliestFajr,$event,i,'earliestFajr');" [outsideClick]="true">
           </td>
-          <!-- <td>
+          <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="fajr" [class.is-invalid]="salah.controls.fajr.errors"
-              [popover]="popOverTemplate" trigger="dblclick" (dblclick)="onDoubleClicked('Fajr',i)">
+              [popover]="popOverTemplate" #popoverFajr="bs-popover" triggers="" (dblclick)="onShowPopOver(popoverFajr,$event,i,'fajr');"
+              [outsideClick]="true">
           </td>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="sunrise"
-              [class.is-invalid]="salah.controls.sunrise.errors" (dblclick)="onDoubleClicked('SUNRISE',i)">
+              [class.is-invalid]="salah.controls.sunrise.errors" [popover]="popOverTemplate" #popoverSunrise="bs-popover"
+              triggers="" (dblclick)="onShowPopOver(popoverSunrise,$event,i,'sunrise');" [outsideClick]="true">
           </td>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="earliestZuhr"
-              [class.is-invalid]="salah.controls.earliestZuhr.errors" (dblclick)="onDoubleClicked('EarliestZuhr',i)">
+              [class.is-invalid]="salah.controls.earliestZuhr.errors" [popover]="popOverTemplate" #popoverEarliestZuhr="bs-popover"
+              triggers="" (dblclick)="onShowPopOver(popoverEarliestZuhr,$event,i,'earliestZuhr');" [outsideClick]="true">
           </td>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="zuhr" [class.is-invalid]="salah.controls.zuhr.errors"
-              (dblclick)="onDoubleClicked('ZUHR',i)">
+              [popover]="popOverTemplate" #popoverZuhr="bs-popover" triggers="" (dblclick)="onShowPopOver(popoverZuhr,$event,i,'zuhr');"
+              [outsideClick]="true">
           </td>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="earliestAsr"
-              [class.is-invalid]="salah.controls.earliestAsr.errors" (dblclick)="onDoubleClicked('EarliestAsr',i)">
+              [class.is-invalid]="salah.controls.earliestAsr.errors" [popover]="popOverTemplate" #popoverEarliestAsr="bs-popover"
+              triggers="" (dblclick)="onShowPopOver(popoverEarliestAsr,$event,i,'earliestAsr');" [outsideClick]="true">
           </td>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="asr" [class.is-invalid]="salah.controls.asr.errors"
-              (dblclick)="onDoubleClicked('ASR',i)">
+              [popover]="popOverTemplate" #popoverAsr="bs-popover" triggers="" (dblclick)="onShowPopOver(popoverAsr,$event,i,'asr');"
+              [outsideClick]="true">
           </td>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="magrib"
-              [class.is-invalid]="salah.controls.magrib.errors" (dblclick)="onDoubleClicked('MAGRIB',i)">
+              [class.is-invalid]="salah.controls.magrib.errors" [popover]="popOverTemplate" #popoverMagrib="bs-popover"
+              triggers="" (dblclick)="onShowPopOver(popoverMagrib,$event,i,'magrib');" [outsideClick]="true">
           </td>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="earliestIsha"
-              [class.is-invalid]="salah.controls.earliestIsha.errors" (dblclick)="onDoubleClicked('earliestIsha',i)">
+              [class.is-invalid]="salah.controls.earliestIsha.errors" [popover]="popOverTemplate" #popoverEarliestIsha="bs-popover"
+              triggers="" (dblclick)="onShowPopOver(popoverEarliestIsha,$event,i,'earliestIsha');" [outsideClick]="true">
           </td>
           <td>
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="isha" [class.is-invalid]="salah.controls.isha.errors"
-              (dblclick)="onDoubleClicked('ISHA',i)">
-          </td> -->
+              [popover]="popOverTemplate" #popoverIsha="bs-popover" triggers="" (dblclick)="onShowPopOver(popoverIsha,$event,i,'isha');"
+              [outsideClick]="true">
+          </td>
         </tr>
       </tbody>
     </table>

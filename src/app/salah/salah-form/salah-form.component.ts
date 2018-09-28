@@ -12,20 +12,16 @@ import { TabHeadingDirective } from 'ngx-bootstrap';
 })
 export class SalahFormComponent implements OnInit, OnChanges {
 
-  @Input()
-  month: number;
-
-  @Input()
-  year: number;
-
-  @Input()
-  loadData = false;
+  @Input() month: number;
+  @Input() year: number;
+  @Input() loadData = false;
 
   form: FormGroup;
   mask = [/[0-2]/, /\d/, ':', /[0-5]/, /\d/];
   isLoading = false;
+  prayersLoadedBefore = false;
 
-  private _doubleClickedInput;
+  private timeToCopy;
   private _organisationId = 1;
 
   constructor(private fb: FormBuilder,
@@ -48,40 +44,47 @@ export class SalahFormComponent implements OnInit, OnChanges {
   // to get data then.
   ngOnChanges(changes: SimpleChanges) {
     if (changes.loadData) {
-      if (changes.loadData.currentValue) {
-        this.isLoading = true;
-        //get monthly salah for the month when the tab is clicked
-        this.salahService.getMonthlySalahs(this.month, this._organisationId)
-          .subscribe(
-            data => {
-              this.updateFormWithMonthlySalahs(data);
-            },
-            error => { alert('Couldnt get monthly salahs'); },
-            () => { this.isLoading = false; }
-          );
+      if (changes.loadData.currentValue && !this.prayersLoadedBefore) {
+        // get monthly salah for the month when the tab is clicked
+        this.getMonthlyPrayers();
       }
     }
   }
 
+  getMonthlyPrayers() {
+    this.isLoading = true;
+    this.salahService.getMonthlySalahs(this.month, this._organisationId)
+      .subscribe(
+        data => {
+          this.updateFormWithMonthlySalahs(data);
+        },
+        error => { alert('Couldnt get monthly salahs'); },
+        () => {
+          this.isLoading = false;
+          this.prayersLoadedBefore = true;
+        }
+      );
+  }
+
   updateFormWithMonthlySalahs(monthlySalahs) {
     console.log('Updating form with latest data', monthlySalahs);
-    for (let i = 0; i < monthlySalahs.prayerTimes.length; i++) {
+    monthlySalahs.map((x, index) => {
 
-      this.salahs.at(i).patchValue({
-        fajr: monthlySalahs.prayerTimes[i].jamaatTimes.fajr,
-        zuhr: monthlySalahs.prayerTimes[i].jamaatTimes.zuhr,
-        asr: monthlySalahs.prayerTimes[i].jamaatTimes.asr,
-        magrib: monthlySalahs.prayerTimes[i].jamaatTimes.magrib,
-        isha: monthlySalahs.prayerTimes[i].jamaatTimes.isha,
+      this.salahs.at(index).patchValue({
+        fajr: x.jamaatTimes.fajr,
+        zuhr: x.jamaatTimes.zuhr,
+        asr: x.jamaatTimes.asr,
+        magrib: x.jamaatTimes.magrib,
+        isha: x.jamaatTimes.isha,
 
-        earliestFajr: monthlySalahs.prayerTimes[i].startPrayerTimes.fajr,
-        sunrise: monthlySalahs.prayerTimes[i].startPrayerTimes.sunrise,
-        earliestZuhr: monthlySalahs.prayerTimes[i].startPrayerTimes.zuhr,
-        earliestAsr: monthlySalahs.prayerTimes[i].startPrayerTimes.asr,
-        earliestIsha: monthlySalahs.prayerTimes[i].startPrayerTimes.isha,
-
+        earliestFajr: x.startPrayerTimes.fajr,
+        sunrise: x.startPrayerTimes.sunrise,
+        earliestZuhr: x.startPrayerTimes.zuhr,
+        earliestAsr: x.startPrayerTimes.asr,
+        earliestIsha: x.startPrayerTimes.isha,
       });
-    }
+
+    });
   }
 
   getNumberOfSalahsForTheMonth(): FormGroup[] {
@@ -110,36 +113,58 @@ export class SalahFormComponent implements OnInit, OnChanges {
 
   save() {
     console.log(this.form);
-    const salahs = this.form.value.salahs;
-    const month = this.form.value.month;
-    const payload = {
-      month: month,
-      organisationId: this._organisationId,
-      salahs: salahs
-    };
-    salahs.map(x => {
-      x.month = this.form.value.month;
-      x.organisationId = this._organisationId;
+    const payload = [];
+
+    this.form.value.salahs.map(x => {
+      payload.push({
+        day: x.day,
+        month: +this.month,
+        organisationId: this._organisationId,
+        jamaatTimes: {
+          fajr: x.fajr,
+          zuhr: x.zuhr,
+          asr: x.asr,
+          magrib: x.magrib,
+          isha: x.isha
+        },
+        startPrayerTimes: {
+          fajr: x.earliestFajr,
+          sunrise: x.sunrise,
+          zuhr: x.earliestZuhr,
+          asr: x.earliestAsr,
+          isha: x.earliestIsha
+        }
+      });
+
     });
-    this.salahService.saveMonthlySalahs(payload)
+    this.salahService.saveMonthlySalahs(payload, this.month, this._organisationId)
       .subscribe(
         data => { alert('sucess'); },
         error => { alert('Something went wrong'); }
       );
   }
 
-  onDoubleClicked(salah, index) {
-    this._doubleClickedInput = { salahName: salah, formindex: index };
-    console.log(this._doubleClickedInput);
+  onShowPopOver($popover, $input, index, prayer) {
+    console.log($input.target, index, prayer);
+    if ($input.target.value) {
+      this.timeToCopy = { index: index, field: prayer, popover: $popover };
+      $popover.show();
+    }
   }
 
   onCopySalahTimeToOtherDays() {
-    console.log('Hello');
-    //const time = this.salahs[this._doubleClickedInput.formIndex][this._doubleClickedInput.salahName];
-    //console.log(time, this._doubleClickedInput);
+    const time = this.salahs.at(this.timeToCopy.index).get(this.timeToCopy.field).value;
+    for (let i = 0; i < this.salahs.length; i++) {
+      this.salahs.at(i).get(this.timeToCopy.field).setValue(time);
+    }
+    this.timeToCopy.popover.hide();
   }
 
-  log() {
-    console.log("on mouse over");
+  onRefresh() {
+    this.getMonthlyPrayers();
+  }
+
+  log(e) {
+    console.log("on mouse over", e);
   }
 }
