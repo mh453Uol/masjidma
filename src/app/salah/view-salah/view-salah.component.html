@@ -1,47 +1,52 @@
-<app-date-slider [today]="today" (change)="getSalahs($event)"></app-date-slider>
-
-<div class="table-responsive" *ngIf="prayer">
-  <table class="table table-hover">
-    <thead class="text-center">
-      <tr>
-        <th scope="col-2">Salah</th>
-        <th scope="col">Earliest
-          <i class="fa fa-question-circle" tooltip="These times are the start time of each salah"></i>
-        </th>
-        <th scope="col">Jamaat
-          <i class="fa fa-question-circle" tooltip="These times are when <organization> read in congregration"></i>
-        </th>
-      </tr>
-    </thead>
-    <tbody class="text-center">
-      <tr>
-        <td>Fajr</td>
-        <td>{{prayer.startPrayerTimes.fajr}}</td>
-        <td>{{prayer.jamaatTimes.fajr}}</td>
-      </tr>
-      <tr>
-        <td>Sunrise</td>
-        <td colspan="2">{{prayer.startPrayerTimes.sunrise}}</td>
-      </tr>
-      <tr>
-        <td>Zuhr</td>
-        <td>1:00</td>
-        <td>{{prayer.jamaatTimes.zuhr}}</td>
-      </tr>
-      <tr>
-        <td>Asr</td>
-        <td>6:30</td>
-        <td>{{prayer.jamaatTimes.asr}}</td>
-      </tr>
-      <tr>
-        <td>Magrib</td>
-        <td colspan="2">{{prayer.jamaatTimes.magrib}}</td>
-      </tr>
-      <tr>
-        <td>Isha</td>
-        <td>9:50</td>
-        <td>{{prayer.jamaatTimes.isha}}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="card">
+  <div class="card-header">
+    <app-date-slider [today]="today" (change)="getSalahs($event)"></app-date-slider>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive" *ngIf="prayer">
+      <table class="table table-hover">
+        <thead class="text-center">
+          <tr>
+            <th scope="col-2">Salah</th>
+            <th scope="col">Earliest
+              <i class="fa fa-question-circle" tooltip="These times are the start time of each salah"></i>
+            </th>
+            <th scope="col">Jamaat
+              <i class="fa fa-question-circle" tooltip="These times are when <organization> read in congregration"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr>
+            <td>Fajr</td>
+            <td>{{prayer.startPrayerTimes.fajr}}</td>
+            <td>{{prayer.jamaatTimes.fajr}}</td>
+          </tr>
+          <tr>
+            <td>Sunrise</td>
+            <td colspan="2">{{prayer.startPrayerTimes.sunrise}}</td>
+          </tr>
+          <tr>
+            <td>Zuhr</td>
+            <td>{{prayer.startPrayerTimes.zuhr}}</td>
+            <td>{{prayer.jamaatTimes.zuhr}}</td>
+          </tr>
+          <tr>
+            <td>Asr</td>
+            <td>{{prayer.startPrayerTimes.asr}}</td>
+            <td>{{prayer.jamaatTimes.asr}}</td>
+          </tr>
+          <tr>
+            <td>Magrib</td>
+            <td colspan="2">{{prayer.jamaatTimes.magrib}}</td>
+          </tr>
+          <tr>
+            <td>Isha</td>
+            <td>{{prayer.startPrayerTimes.isha}}</td>
+            <td>{{prayer.jamaatTimes.isha}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

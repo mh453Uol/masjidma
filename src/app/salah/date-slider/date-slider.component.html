@@ -1,20 +1,18 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-2">
-      <div class="float-left">
-        <i class="fa fa-chevron-left fa-lg" style="cursor: pointer" (click)="yesterday()"></i>
-      </div>
+<div class="row">
+  <div class="col-2">
+    <div class="float-left">
+      <i class="fa fa-chevron-left fa-lg" style="cursor: pointer" (click)="yesterday()"></i>
     </div>
-
-    <div class=" col-8">
-      <p class="text-center text-justify font-weight-bold">{{date}}</p>
-    </div>
-
-    <div class="col-2">
-      <div class="float-right">
-        <i class="fa fa-chevron-right fa-lg	" style="cursor: pointer" (click)="tomorrow()"></i>
-      </div>
-    </div>
-
   </div>
+
+  <div class=" col-8">
+    <div class="text-center text-justify font-weight-bold">{{date}}</div>
+  </div>
+
+  <div class="col-2">
+    <div class="float-right">
+      <i class="fa fa-chevron-right fa-lg	" style="cursor: pointer" (click)="tomorrow()"></i>
+    </div>
+  </div>
+
 </div>

@@ -155,7 +155,7 @@ export class SalahFormComponent implements OnInit, OnChanges {
   onCopySalahTimeToOtherDays() {
     const time = this.salahs.at(this.timeToCopy.index).get(this.timeToCopy.field).value;
     for (let i = 0; i < this.salahs.length; i++) {
-      this.salahs.at(i).get(this.timeToCopy.field).setValue(time);
+      this.salahs.at(i).get(this.timeToCopy.field).patchValue(time);
     }
     this.timeToCopy.popover.hide();
   }

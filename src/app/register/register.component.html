@@ -1,0 +1,55 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div formGroupName="organisation">
+    <div class="form-group">
+      <label for="inputOrganisationName">Organisation Name</label>
+      <div class="alert alert-danger" *ngIf="organisation.controls.name.touched && organisation.controls.name.errors?.required">Organisation
+        name is required</div>
+      <input formControlName="name" type="text" class="form-control" id="inputOrganisationName" placeholder="Masjid, Islamic Society (ISoc)" />
+    </div>
+    <div class="form-group">
+      <label for="inputAddress">Address</label>
+      <div class="alert alert-danger" *ngIf="organisation.controls.address.touched && organisation.controls.address.errors?.required">Address
+        is required</div>
+      <input formControlName="address" type="text" class="form-control" id="inputAddress" placeholder="Address">
+    </div>
+
+    <div class="form-group">
+      <label for="inputCity">City</label>
+      <input formControlName="city" type="text" class="form-control" id="inputCity" placeholder="City">
+    </div>
+    <div class="form-group">
+      <label for="inputZip">Postcode</label>
+      <div class="alert alert-danger" *ngIf="organisation.controls.postcode.touched && organisation.controls.postcode.errors?.required">Postcode
+        is required</div>
+      <input formControlName="postcode" type="text" class="form-control" id="inputZip" placeholder="Postcode">
+    </div>
+  </div>
+
+  <div formGroupName="user">
+    <div class="form-group">
+      <label for="inputEmail">Email</label>
+      <div *ngIf="user.controls.email.errors && user.controls.email.touched">
+        <div class="alert alert-danger" *ngIf="user.controls.email.errors?.required">Email
+          is required</div>
+        <div class="alert alert-danger" *ngIf="user.controls.email.errors?.email">Enter valid email address</div>
+      </div>
+      <input formControlName="email" type="email" class="form-control" id="inputEmail" placeholder="Email">
+    </div>
+    <div formGroupName="password">
+      <div class="alert alert-danger" *ngIf="passwords.controls.confirmPassword.errors?.MatchPassword">Password not
+        match</div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputPassword">Password</label>
+          <input formControlName="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputConfirmPassword">Confirm Password</label>
+          <input formControlName="confirmPassword" type="password" class="form-control" id="inputConfirmPassword"
+            placeholder="Confirm Password">
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="onSubmit()" [disabled]="form.invalid">Register</button>
+</form>
