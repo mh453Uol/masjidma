@@ -1,23 +1,23 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" routerLink="/home">
     Masjidma
   </a>
-  <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed">
+  <button class="navbar-toggler" type="button" (click)="onToggleCollapse()">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" [collapse]="isCollapsed">
     <ul class="navbar-nav bg-dark">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a (click)="collapse()" routerLink="/home" routerLinkActive="active" class="nav-link">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Prayer Times</a>
+        <a (click)="collapse()" routerLink="/salahs" routerLinkActive="active" class="nav-link">Salahs</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Register</a>
+        <a (click)="collapse()" routerLink="/register" routerLinkActive="active" class="nav-link">Register</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Log in</a>
+        <a (click)="collapse()" routerLink="/login" routerLinkActive="active" class="nav-link">Log in</a>
       </li>
     </ul>
   </div>

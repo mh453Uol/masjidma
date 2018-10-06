@@ -82,6 +82,9 @@ export class SalahFormComponent implements OnInit, OnChanges {
         earliestZuhr: x.startPrayerTimes.zuhr,
         earliestAsr: x.startPrayerTimes.asr,
         earliestIsha: x.startPrayerTimes.isha,
+
+        jummah1: x.jammatTimes.jummah1,
+        jummah2: x.jammatTimes.jummah2
       });
 
     });
@@ -106,6 +109,9 @@ export class SalahFormComponent implements OnInit, OnChanges {
         earliestZuhr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
         earliestAsr: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
         earliestIsha: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+
+        jummah1: ['', [Validators.required, TimeValidator.shouldBe24HourTimeFormat]],
+        jummah2: ''
       }));
     }
     return prayers;
@@ -125,7 +131,9 @@ export class SalahFormComponent implements OnInit, OnChanges {
           zuhr: x.zuhr,
           asr: x.asr,
           magrib: x.magrib,
-          isha: x.isha
+          isha: x.isha,
+          jummah1: x.jummah1,
+          jummah2: x.jummah2
         },
         startPrayerTimes: {
           fajr: x.earliestFajr,

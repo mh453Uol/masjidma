@@ -32,6 +32,8 @@
           <th scope="col" style="min-width: 90px">Magrib</th>
           <th scope="col" style="min-width: 90px">Earliest Isha</th>
           <th scope="col" style="min-width: 90px">Isha</th>
+          <th scope="col" style="min-width: 90px">Jummah 1</th>
+          <th scope="col" style="min-width: 90px">Jummah 2</th>
         </tr>
       </thead>
       <tbody formArrayName="salahs" *ngFor="let salah of salahs.controls; let i = index;">
@@ -86,6 +88,16 @@
             <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="isha" [class.is-invalid]="salah.controls.isha.errors"
               [popover]="popOverTemplate" #popoverIsha="bs-popover" triggers="" (dblclick)="onShowPopOver(popoverIsha,$event,i,'isha');"
               [outsideClick]="true">
+          </td>
+          <td>
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="jummah1"
+              [class.is-invalid]="salah.controls.jummah1.errors" [popover]="popOverTemplate" #popoverJummah1="bs-popover"
+              triggers="" (dblclick)="onShowPopOver(popoverJummah1,$event,i,'jummah1');" [outsideClick]="true">
+          </td>
+          <td>
+            <input [textMask]="{mask: mask}" type="text" class="form-control" formControlName="jummah2"
+              [class.is-invalid]="salah.controls.jummah2.errors" [popover]="popOverTemplate" #popoverJummah2="bs-popover"
+              triggers="" (dblclick)="onShowPopOver(popoverJummah2,$event,i,'jummah2');" [outsideClick]="true">
           </td>
         </tr>
       </tbody>

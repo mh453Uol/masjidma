@@ -1,3 +1,4 @@
+import { RegisterService } from './register.service';
 import { PasswordValidator } from './../shared/validation/password-validator';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private _registerService: RegisterService) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -22,11 +24,9 @@ export class RegisterComponent implements OnInit {
       }),
       'user': this.fb.group({
         'email': ['', Validators.compose([Validators.required, Validators.email])],
-        'password': this.fb.group({
-          'password': ['', Validators.required],
-          'confirmPassword': ['', Validators.required]
-        }, { validator: PasswordValidator.MatchPassword }),
-      })
+        'password': ['', Validators.required],
+        'confirmPassword': ['', Validators.required]
+      }, { validator: PasswordValidator.MatchPassword })
     });
 
   }
@@ -39,12 +39,13 @@ export class RegisterComponent implements OnInit {
     return this.form.get('user') as FormGroup;
   }
 
-  get passwords(): FormGroup {
-    return (<FormGroup>this.form.get('user')).get('password') as FormGroup;
-  }
-
   onSubmit() {
-
+    console.log(this.form.value);
+    this._registerService.register(this.form.value)
+      .subscribe(
+        data => { console.log(data); },
+        error => { alert('something went wrong'); }
+      );
   }
 
 }

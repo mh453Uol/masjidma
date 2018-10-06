@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:8080/api',
-  salahUrl: '/salahs'
+  salahUrl: '/salahs',
+  accountUrl: '/account',
+  registerUrl: '/register',
+  loginUrl: '/login'
 };
 
 /*

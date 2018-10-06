@@ -24,14 +24,12 @@ import { YearlySalahFormComponent } from './yearly-salah-form/yearly-salah-form.
     ViewSalahComponent,
     DateSliderComponent,
     SalahFormComponent,
-    CreateNonDailySalahComponent,
     YearlySalahFormComponent
   ],
   exports: [
     SalahFormComponent,
     ViewSalahComponent,
     DateSliderComponent,
-    CreateNonDailySalahComponent,
     YearlySalahFormComponent
   ],
   providers: [
