@@ -5,11 +5,17 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+  aboutUsBeenFocused = false;
 
   constructor() { }
 
-  ngOnInit() {
+  onShowSaveButton() {
+    this.aboutUsBeenFocused = true;
+  }
+
+  log(x: HTMLInputElement) {
+    console.log(x.value.length === 0);
   }
 
 }

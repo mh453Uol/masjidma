@@ -1,3 +1,19 @@
-<p>
-  home works!
-</p>
+<h2>Organisation</h2>
+
+<div class="alert alert-info">
+  This is your public prayer time page, if you havent already done so add your prayer times.
+</div>
+
+<div class="row">
+  <div class="col-sm-4" style="padding-bottom:15px">
+    <app-view-salah></app-view-salah>
+  </div>
+  <div class="col-sm-8">
+    <div class="form-group">
+      <textarea (focus)="onShowSaveButton()" class="form-control" rows="7" id="comment" placeholder="Add any message here i.e about your organisation, events etc."></textarea>
+    </div>
+    <div class="form-group">
+      <button type="button" [hidden]="!aboutUsBeenFocused" class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</div>
